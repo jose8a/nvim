@@ -1,0 +1,288 @@
+-- Only required if you have packer configured as `opt`
+vim.cmd [[packadd packer.nvim]]
+
+return require('packer').startup(function()
+  -- PACKER
+  -- =============================================
+  use { 'wbthomason/packer.nvim' }
+
+-- DEBUG /  -- Load first (startup speedup, common utils, etc)
+-- DEBUG /  -- =============================================
+-- DEBUG /  use {'lewis6991/impatient.nvim'}
+-- DEBUG /  use {'nathom/filetype.nvim'}
+-- DEBUG /  use { 'nvim-lua/plenary.nvim' }
+-- DEBUG /  use { 'kyazdani42/nvim-web-devicons' }
+-- DEBUG /
+-- DEBUG /  -- Misc Utilities
+-- DEBUG /  -- =============================================
+-- DEBUG /  use { 'metakirby5/codi.vim' }
+-- DEBUG /
+-- DEBUG /  use {
+-- DEBUG /    'norcalli/nvim-colorizer.lua',
+-- DEBUG /    config = function()
+-- DEBUG /      require('colorizer').setup ({
+-- DEBUG /        'css';
+-- DEBUG /        'javascript';
+-- DEBUG /        'html';
+-- DEBUG /      },{
+-- DEBUG /        css = true;
+-- DEBUG /      })
+-- DEBUG /    end
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  use {
+-- DEBUG /    'windwp/nvim-autopairs',
+-- DEBUG /    config = function()
+-- DEBUG /      require('nvim-autopairs').setup {
+-- DEBUG /        disable_filetype = { "TelescopePrompt" , "vim" },
+-- DEBUG /      }
+-- DEBUG /    end
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  use {
+-- DEBUG /    'folke/trouble.nvim',
+-- DEBUG /    requires = 'kyazdani42/nvim-web-devicons',
+-- DEBUG /    config = function()
+-- DEBUG /      require('trouble').setup {
+-- DEBUG /        -- use the default settings
+-- DEBUG /        -- TODO: create key-mappings (see the repo)
+-- DEBUG /      }
+-- DEBUG /    end
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  use {
+-- DEBUG /    'folke/todo-comments.nvim',
+-- DEBUG /    requires = 'nvim-lua/plenary.nvim',
+-- DEBUG /    config = function()
+-- DEBUG /      require('todo-comments').setup {
+-- DEBUG /        -- use the default settings
+-- DEBUG /        keywords = {
+-- DEBUG /          FIX = {
+-- DEBUG /            icon = " ", -- used for sign, and w/search results
+-- DEBUG /            color = "error", -- hex color, or named color (see below)
+-- DEBUG /            alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of
+-- DEBUG /              -- other keywords that all map to this FIX keywords
+-- DEBUG /            -- signs = false, -- configure signs for some keywords individually
+-- DEBUG /          },
+-- DEBUG /          TODO = { icon = " ", color = "info" },
+-- DEBUG /          HACK = { icon = " ", color = "warning" },
+-- DEBUG /          WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX", "DOVE" } },
+-- DEBUG /          PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+-- DEBUG /          NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+-- DEBUG /          TEST = { icon = ">", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+-- DEBUG /        },
+-- DEBUG /        -- highlight = {
+-- DEBUG /        --   multiline = true, -- enable multine todo comments
+-- DEBUG /        --   multiline_pattern = "^.", -- lua pattern to match the next multiline from the start of the matched keyword
+-- DEBUG /        --   multiline_context = 10, -- extra lines that will be re-evaluated when changing a line
+-- DEBUG /        --   max_line_len = 400, -- ignore lines longer than this
+-- DEBUG /        --   comments_only = false,
+-- DEBUG /        --   exclude = {},
+-- DEBUG /        -- },
+-- DEBUG /        colors = {
+-- DEBUG /          error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
+-- DEBUG /          warning = { "DiagnosticWarning", "WarningMsg", "#FBBF24" },
+-- DEBUG /          info = { "DiagnosticInfo", "#2563EB" },
+-- DEBUG /          hint = { "DiagnosticHint", "#10B981" },
+-- DEBUG /          default = { "Identifier", "#7C3AED" },
+-- DEBUG /          test = { "Identifier", "#F2992F" },
+-- DEBUG /        },
+-- DEBUG /      }
+-- DEBUG /    end
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  use {
+-- DEBUG /    'folke/which-key.nvim',
+-- DEBUG /    config = function()
+-- DEBUG /      require('which-key').setup {
+-- DEBUG /        -- use the default settings
+-- DEBUG /      }
+-- DEBUG /    end
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  -- 'akinsho/bufferline.nvim'
+-- DEBUG /  use {
+-- DEBUG /    'akinsho/bufferline.nvim',
+-- DEBUG /    tag = "v2.*",
+-- DEBUG /    requires = 'kyazdani42/nvim-web-devicons',
+-- DEBUG /    config = function()
+-- DEBUG /      require("bufferline").setup{
+-- DEBUG /        options = {
+-- DEBUG /          separator_style = "slant"
+-- DEBUG /        }
+-- DEBUG /      }
+-- DEBUG /    end
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  -- 'tami5/lspsaga.nvim'
+-- DEBUG /  use {
+-- DEBUG /    'tami5/lspsaga.nvim',
+-- DEBUG /    config = function()
+-- DEBUG /      require("lspsaga").setup {
+-- DEBUG /      }
+-- DEBUG /
+-- DEBUG /      require("lspsaga").init_lsp_saga({
+-- DEBUG /        finder_action_keys = {
+-- DEBUG /          open = '<CR>',
+-- DEBUG /          quit = {'q', '<esc>'},
+-- DEBUG /        },
+-- DEBUG /        code_action_keys = {
+-- DEBUG /          quit = {'q', '<esc>'},
+-- DEBUG /        },
+-- DEBUG /        rename_action_keys = {
+-- DEBUG /          quit = '<esc>',
+-- DEBUG /        },
+-- DEBUG /      })
+-- DEBUG /    end
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  -- TODO: these are next to be installed
+-- DEBUG /  use { 'p00f/nvim-ts-rainbow' }
+-- DEBUG /
+-- DEBUG /  use {
+-- DEBUG /    'numToStr/Comment.nvim',
+-- DEBUG /    config = function()
+-- DEBUG /        require('Comment').setup()
+-- DEBUG /    end
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  use { 'JoosepAlviste/nvim-ts-context-commentstring' }
+-- DEBUG /
+-- DEBUG /  -- MODERN COLOR THEMES
+-- DEBUG /  -- =============================================
+-- DEBUG /  use {
+-- DEBUG /    'navarasu/onedark.nvim',              -- default for all but MD
+-- DEBUG /    config = function()
+-- DEBUG /      require('onedark').setup {
+-- DEBUG /        style = 'deep'
+-- DEBUG /      }
+-- DEBUG /      require('onedark').load()
+-- DEBUG /    end
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  use { 'rebelot/kanagawa.nvim' }
+-- DEBUG /  use { 'folke/tokyonight.nvim' }
+-- DEBUG /  use { 'tiagovla/tokyodark.nvim' }
+-- DEBUG /  use { 'sainnhe/sonokai' }
+-- DEBUG /  use { 'ray-x/aurora' }
+-- DEBUG /
+-- DEBUG /  -- LEGACY COLOR THEMES
+-- DEBUG /  -- =============================================
+-- DEBUG /  use { 'zeis/vim-kolor' }
+-- DEBUG /  use { 'NLKNguyen/papercolor-theme' }  -- markdown-only theme
+-- DEBUG /  use { 'morhetz/gruvbox' }
+-- DEBUG /  use { 'dracula/vim' }
+-- DEBUG /
+-- DEBUG /  -- LEGACY VIM UTILITIES
+-- DEBUG /  -- =============================================
+-- DEBUG /  use { 'godlygeek/tabular' }
+-- DEBUG /  use { 'tpope/vim-surround' }
+-- DEBUG /  use { 'mattn/emmet-vim' }
+-- DEBUG /
+-- DEBUG /
+-- DEBUG /  -- GIT
+-- DEBUG /  -- =============================================
+-- DEBUG /  use { 'tpope/vim-fugitive' }
+-- DEBUG /  use {
+-- DEBUG /    'lewis6991/gitsigns.nvim',
+-- DEBUG /    config = "require('config.gitsigns')"
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  -- TMUX
+-- DEBUG /  -- =============================================
+-- DEBUG /  use { 'christoomey/vim-tmux-navigator' }
+-- DEBUG /
+-- DEBUG /  -- Language Parsers
+-- DEBUG /  -- =============================================
+-- DEBUG /  use {
+-- DEBUG /    'nvim-treesitter/nvim-treesitter',
+-- DEBUG /    config = "require('config.treesitter')"
+-- DEBUG /  }
+  use {
+   'neovim/nvim-lspconfig',
+   config = "require('config.lsp')"
+  }
+
+-- DEBUG /  -- Snippets
+-- DEBUG /  -- TODO/FIXME: should these come before or after nvim-cmp if
+-- DEBUG /  -- TODO/FIXME: .. nvim-cmp calls setup for any these below?
+-- DEBUG /  -- =============================================
+-- DEBUG /  use { 'SirVer/ultisnips' }
+-- DEBUG /  use { 'honza/vim-snippets', rtp = '.' }
+-- DEBUG /  use { 'quangnguyen30192/cmp-nvim-ultisnips', rtp = '.'}
+-- DEBUG /
+-- DEBUG /  -- Completion
+-- DEBUG /  -- TODO/FIXME: debug/edit/add the existing `nvim-cmp` config
+-- DEBUG /  -- =============================================
+-- DEBUG /  -- use { 'hrsh7th/nvim-cmp' }
+-- DEBUG /  use {
+-- DEBUG /    'hrsh7th/nvim-cmp',
+-- DEBUG /    requires = {
+-- DEBUG /      "quangnguyen30192/cmp-nvim-ultisnips",
+-- DEBUG /      config = function()
+-- DEBUG /        -- optional call to setup (see customization section)
+-- DEBUG /        require("cmp_nvim_ultisnips").setup{}
+-- DEBUG /      end,
+-- DEBUG /      -- If you want to enable filetype detection based on treesitter:
+-- DEBUG /      -- requires = { "nvim-treesitter/nvim-treesitter" },
+-- DEBUG /    },
+-- DEBUG /    config = "require('config.cmp')"
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  use { 'hrsh7th/cmp-nvim-lsp' }
+-- DEBUG /  use { 'hrsh7th/cmp-buffer' }
+-- DEBUG /  use { 'hrsh7th/cmp-path' }
+-- DEBUG /  use { 'hrsh7th/cmp-cmdline' }
+-- DEBUG /  use { 'hrsh7th/cmp-nvim-lua' }
+-- DEBUG /
+-- DEBUG /  -- Telescope
+-- DEBUG /  -- =============================================
+-- DEBUG /  use {
+-- DEBUG /    'nvim-telescope/telescope.nvim',
+-- DEBUG /    requires = { {'nvim-lua/plenary.nvim'} },
+-- DEBUG /    config = "require('config.telescope')"
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  use { 'fhill2/telescope-ultisnips.nvim' }
+-- DEBUG /
+-- DEBUG /  -- Statusline
+-- DEBUG /  -- =============================================
+-- DEBUG /  use {
+-- DEBUG /    'hoob3rt/lualine.nvim',
+-- DEBUG /    config = "require('config.lualine')"
+-- DEBUG /  }
+-- DEBUG /
+-- DEBUG /  -- non-Treesitter Markdown lang-tools
+-- DEBUG /  -- =============================================
+-- DEBUG /  -- use { 'vim-pandoc/vim-pandoc' }
+-- DEBUG /  -- use { 'vim-pandoc/vim-pandoc-syntax' }
+-- DEBUG /  use { 'preservim/vim-markdown' }
+-- DEBUG /  use { 'Scuilion/markdown-drawer' }
+-- DEBUG /
+-- DEBUG /  -- FIX: 2022.0105 - disable b/c currently
+-- DEBUG /  -- causing MD LSP detection problem
+-- DEBUG /  -- =============================================
+-- DEBUG /  -- use { 'SidOfc/mkdx' }
+-- DEBUG /
+-- DEBUG /  -- TODO/FIXME: additional plugins to install next
+-- DEBUG /  -- =============================================
+-- DEBUG /  -- very nifty navigation / alternative to vim-sneak
+-- DEBUG /  -- * [ ] .. use { 'ggandor/lightspeed.nvim' }
+-- DEBUG /  -- ..
+-- DEBUG /  -- view diffs for git-changes across multiple changed-files
+-- DEBUG /  -- * [ ] .. use { 'sindrets/diffview.nvim' }
+-- DEBUG /  -- ..
+-- DEBUG /  -- improved selection of objects/subjects via treesitter
+-- DEBUG /  -- * [ ] .. use { 'nvim-treesitter/nvim-treesitter-textobjects' }
+-- DEBUG /  -- * [ ] .. use { 'RRethy/nvim-treesitter-textsubjects' }
+-- DEBUG /  -- ..
+-- DEBUG /  -- adds ts-syntax-highlighting to 'function' arguments
+-- DEBUG /  -- * [ ] .. use { 'm-demare/hlargs.nvim' }
+-- DEBUG /  -- ..
+-- DEBUG /  -- utils to improve TS dev w/NV LSP
+-- DEBUG /  -- * [ ] .. use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
+-- DEBUG /  -- ..
+-- DEBUG /  -- vim.ui interfaces - improve the defaults
+-- DEBUG /  -- * [ ] .. use { 'stevearc/dressing.nvim' }
+
+end)

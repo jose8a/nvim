@@ -1,0 +1,47 @@
+if vim.fn.has('nvim-0.7') == 1 then
+print('we got neovim 0.7')
+
+-- DEBUG / -- this removes ugly background solid green color from the gitsigns
+-- DEBUG / -- gutter column
+-- DEBUG / vim.opt.termguicolors = true
+-- DEBUG /
+-- DEBUG / -- FIXME: trying to get this to work in Lua as below
+-- DEBUG / -- .. but so far nothing works
+-- DEBUG / -- augroup transparent_signs
+-- DEBUG / --   au!
+-- DEBUG / --
+-- DEBUG / --   au ColorScheme * highlight GitSignsAdd ctermbg=none guibg=none
+-- DEBUG / --   au ColorScheme * highlight GitSignsChange ctermbg=none guibg=none
+-- DEBUG / --   au ColorScheme * highlight GitSignsDelete ctermbg=none guibg=none
+-- DEBUG / -- augroup end
+-- DEBUG /
+-- DEBUG / -- FIXME: trying to remove the green background color from gitsigns
+-- DEBUG / -- vim.cmd [[highlight GitSignsAdd guibg=none gui=nocombine]]
+-- DEBUG /
+-- DEBUG / -- FIXME: trying to remove the green background color from
+-- DEBUG / -- the GitSignsAdd column, but this doesn't seem to
+-- DEBUG / -- work (2022.0503)
+-- DEBUG / local augroup = vim.api.nvim_create_augroup
+-- DEBUG / local gitSignsAddGroup = augroup("GitSignsAdd", { clear = true })
+-- DEBUG /
+-- DEBUG / vim.api.nvim_create_autocmd(
+-- DEBUG /   "FileType",
+-- DEBUG /   {
+-- DEBUG /     pattern = "*",
+-- DEBUG /     command = "highlight GitSignsAdd ctermbg=none ctermfg=green",
+-- DEBUG /     group = gitSignsAddGroup
+-- DEBUG /   }
+-- DEBUG / )
+-- DEBUG / end
+-- DEBUG /
+-- DEBUG / -- Telescope key-shortcups
+-- DEBUG / vim.cmd [[nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>]]
+-- DEBUG / vim.cmd [[nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>]]
+-- DEBUG / vim.cmd [[nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>]]
+-- DEBUG / vim.cmd [[nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>]]
+-- DEBUG / vim.cmd [[nnoremap <leader>fr <cmd>lua require('telescope.builtin').lsp_references()<cr>]]
+-- DEBUG / vim.cmd [[nnoremap <leader>fd <cmd>lua require('telescope.builtin').lsp_definitions()<cr>]]
+-- DEBUG / vim.cmd [[nnoremap <leader>ft <cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>]]
+-- DEBUG / -- Telescope extension shortcuts
+-- DEBUG / vim.cmd [[nnoremap <leader>fu <cmd>lua require('telescope').extensions.ultisnips.ultisnips()<cr>]]
+-- DEBUG /
